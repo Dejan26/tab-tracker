@@ -31,14 +31,14 @@
 
         <v-toolbar-items>
         
-      <v-btn @click="navigateTo({name: 'Register'})">
+      <v-btn v-if="!$store.state.isUserLoggedIn" @click="navigateTo({name: 'Register'})">
          Sign Up
       </v-btn>
     
         </v-toolbar-items>
 
 <v-toolbar-items>
-      <v-btn @click="navigateTo({name: 'Login'})">
+      <v-btn v-if="!$store.state.isUserLoggedIn" @click="navigateTo({name: 'Login'})">
         Login
       </v-btn>
 </v-toolbar-items>
