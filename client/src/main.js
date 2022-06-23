@@ -9,10 +9,17 @@ import 'vuetify/dist/vuetify.min.css'
 import store from '@/store/store'
 
 
-Vue.config.productionTip = false
+
+
 
 Vue.use(Vuetify)
-/* eslint-disable no-new */
+
+
+
+
+Vue.config.productionTip = false
+
+sync(store, router)
 new Vue({
   el: '#app',
   router,

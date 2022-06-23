@@ -1,7 +1,6 @@
 const Promise = require('bluebird')
 // const bcrypt = require('bcryptjs')
 
-// const bcrypt = Promise.promisifyAll(require('bcryptjs'))
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 
 function hashPassword (user, options) {

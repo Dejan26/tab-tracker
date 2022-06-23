@@ -1,11 +1,8 @@
 <template>
 <v-card
-
     color="grey lighten-4"
     flat
-    
-    tile
-    
+    tile 
   >
     <v-toolbar  dense>
         
@@ -18,16 +15,12 @@
         </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-        
-        
-        
-        
-        <!-- <v-toolbar-items>
-      <v-btn >
+ 
+        <v-toolbar-items>
+      <v-btn  @click="navigateTo({name: 'Songs'})">
         Browse
       </v-btn>
-        </v-toolbar-items> -->
+        </v-toolbar-items>
 
         <v-toolbar-items>
         
@@ -35,17 +28,16 @@
          Sign Up
       </v-btn>
     
-        </v-toolbar-items>
-
-<v-toolbar-items>
       <v-btn v-if="!$store.state.isUserLoggedIn" @click="navigateTo({name: 'Login'})">
         Login
       </v-btn>
+
+      <v-btn v-if="$store.state.isUserLoggedIn" @click="logout">
+        Log Out
+      </v-btn>
 </v-toolbar-items>
 
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      
     </v-toolbar>
   </v-card>
  
@@ -56,6 +48,11 @@ export default {
 methods:{
     navigateTo(route){
 this.$router.push(route)
+    },
+    logout(){
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({name: 'root'})
     }
 }
 }
