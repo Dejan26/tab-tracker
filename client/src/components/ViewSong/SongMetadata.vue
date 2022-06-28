@@ -1,17 +1,10 @@
 <template>
-  
-    <v-layout column>
-      <v-flex xs6 offset-xs3>
-        <panel title="Songs">
-            <router-link  slot="action" :to="{name: 'songs-create'}">
-                <v-btn  class="info" fab>
-          add
-        </v-btn>
-        </router-link>
-            <div v-for="song in songs" :key="song.id"  class="song">
-
-            <v-layout>
-                <v-flex>
+  <panel title="Song Metadata">
+    <v-alert
+      outlined
+    >
+    <v-layout>
+                <v-flex xs6>
                     <div class="song-title">
                         {{song.title}}
                     </div>
@@ -26,47 +19,42 @@
                       dark
                       class="cyan"
                       :to="{
-                       name: 'song', 
+                       name: 'song-edit', 
                        params: {
                        songId: song.id
                           }
                        }">
-                             View
+                             Edit
                     </v-btn>
+                    
+                   
                 </v-flex>
 
                 <v-flex xs6>
                 <img class="album-image" :src="song.albumImageUrl" />
+                <br>
+                {{song.album}}
                 </v-flex>
             </v-layout>
-               
-
-            </div>
-        </panel>
-  </v-flex>
-    </v-layout>
-
+            </v-alert>
+    </panel>
 </template>
 
 <script>
-import Panel from '@/components/Panel'
-import SongsService from '@/services/SongsService'
+
 export default {
-components: {
-    Panel
-},
-data(){
-    return {
-        songs: []
-    }
-},
-async mounted(){
-this.songs = (await SongsService.index()).data
-}
+ props: [
+    'song'
+    
+ ]
+ 
 }
 </script>
 
 <style scoped>
+.border{
+    border: 1px solid black;
+}
 .song {
     padding: 20px;
     height: 330px;
@@ -80,5 +68,17 @@ this.songs = (await SongsService.index()).data
 }
 .song-genre {
     font-size: 18px;
+}
+
+textarea{
+    width: 100%;
+    font-family: monospace;
+    border: none;
+    height: 600px;
+    border-style: none;
+    border-color: transparent;
+    overflow: auto;
+    padding: 20px;
+    
 }
 </style>

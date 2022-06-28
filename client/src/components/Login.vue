@@ -15,7 +15,7 @@
     <br>
     <div class="error" v-html="error"></div>
     <br>
-    <v-btn class="cyan" @click="register" >Login</v-btn>
+    <v-btn class="cyan" @click="login" >Login</v-btn>
   </panel>
   </v-flex>
     </v-layout>
@@ -27,13 +27,11 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
-import Panel from '@/components/Panel'
+
 
 export default {
 
-    components: {
-      Panel
-    },
+    
 data(){
     return {
         email: '',
@@ -48,8 +46,13 @@ async login(){
     email: this.email,
     password: this.password
    })
+   this.$router.push({name: 'Songs'})
    this.$store.dispatch('setToken', response.data.token)
    this.$store.dispatch('setUser', response.data.user)
+  
+    
+   
+   
    } catch(error){
     this.error = error.response.data.error
    }

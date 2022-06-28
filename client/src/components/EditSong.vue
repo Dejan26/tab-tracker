@@ -71,8 +71,8 @@
     <v-btn 
     dark
     class="cyan"
-    @click="create" >
-        Create Song
+    @click="save" >
+        Save Song
     </v-btn>
     </v-flex>
     
@@ -103,7 +103,7 @@ data(){
     }
 },
 methods: {
-   async create(){
+   async save(){
     this.error = null
     const areAllFieldsFilledIn = Object
       .keys(this.song)
@@ -112,15 +112,30 @@ methods: {
         this.error = 'Please fill in all the required fields'
         return
       }
+
+      const songId = this.$store.state.route.params.songId
+      try {
+        await SongsService.put(this.song)
+      this.$router.push({
+        name: 'song',
+        params: {
+            songId: songId
+        }
+      })
+      } catch (err) {
+        console.log(err)
+      }
+      
+      
+      
+    }
+},
+async mounted (){
     try {
-         await SongsService.post(this.song)
-         this.$router.push({
-            name:'Songs'
-         })
+        const songId = this.$store.state.route.params.songId
+        this.song = (await SongsService.show(songId)).data     
     } catch (err) {
         console.log(err)
-    }
-      
     }
 }
 }
@@ -131,3 +146,4 @@ methods: {
   color: red;
 }
 </style>
+
